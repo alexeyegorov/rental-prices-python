@@ -11,9 +11,24 @@ RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bi
 # RUN conda install -y python=3.6 \
 #     && pip install --no-cache-dir pipx \
 #     && pipx reinstall-all
+ 
+RUN apt-get update \
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+        git \
+        zsh \
+        wget \
+        fonts-powerline
 
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+ENV USER vscode
+ENV HOME /home/${USER}
 
-COPY .zshrc /home/vscode/.zshrc
+USER ${USER}
+
+RUN \
+    # run the installation script  
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true \
+    # install powerlevel10k
+    && git clone https://github.com/romkatv/powerlevel10k.git ${HOME}/.oh-my-zsh/custom/themes/powerlevel10k 
+
+COPY .zshrc .p10k.zsh ${HOME}

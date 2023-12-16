@@ -10,7 +10,6 @@
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/sshd:1": {},
-		"ghcr.io/devcontainers/features/common-utils:2": {}
 	},
 
 	"mounts": [
@@ -23,7 +22,7 @@
 	// "forwardPorts": []
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "conda init && cp .zshrc ~/.zshrc",
+	"postCreateCommand": "conda init",
 
 	// Configure tool-specific properties.
 	"customizations": {
@@ -39,7 +38,6 @@
 				"donjayamanne.python-extension-pack",
 				"ms-toolsai.jupyter",
 				"eamodio.gitlens",
-				"GitHub.codespaces",
 				"ms-azuretools.vscode-docker",
 				"DavidAnson.vscode-markdownlint"
 			]
